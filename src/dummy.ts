@@ -1,3 +1,5 @@
+import { ITranscription, IUploadItem } from "@/types";
+
 export const transcriptions: ITranscription[] = [
 	{
 		id: "299e087e-5bfa-45d6-bb19-df84cdb42600",
@@ -109,3 +111,117 @@ export const transcriptions: ITranscription[] = [
 	},
 ];
 
+/*
+[
+  "repeat(1,20)",
+  {
+    "id": "guid()",
+    "name": "city()",
+    "status": "enum(success,error,uploading,queued,processing,done)",
+    "progress": "int(0, 100)",
+    "uploadedAt": "date()",
+    "proccessedAt": "date()"
+  }
+]
+Replace(regex):
+"progress": "(\d+)"
+"progress": $1
+*/
+export const uploads: IUploadItem[] = [
+	{
+		id: "03041c2c-d194-4b7e-b666-9ad648d4608a",
+		name: "Margarettaworth",
+		status: "error",
+		progress: 13,
+		uploadedAt: "Mon Mar 20 2017 07:39:52 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Sun Aug 04 1974 00:24:49 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "192e6c6e-164f-430e-810d-19bf594fd650",
+		name: "Parisianshire",
+		status: "success",
+		progress: 4,
+		uploadedAt: "Sat Sep 27 2003 22:24:37 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Wed Jan 05 1983 21:01:41 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "799dfacd-6d58-4fe3-ac5f-dd6329be7e14",
+		name: "Fisherfurt",
+		status: "error",
+		progress: 70,
+		uploadedAt: "Wed Jul 16 2008 02:15:30 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Sat Oct 16 2021 01:26:30 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "ba1678fe-8c9e-4088-9f21-041dbacf237c",
+		name: "Abernathyborough",
+		status: "error",
+		progress: 39,
+		uploadedAt: "Fri Jan 26 2024 01:44:29 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Fri Mar 20 2020 17:30:39 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "27580af5-2246-4c12-b978-e61b7db8a93d",
+		name: "Alessandrostad",
+		status: "error",
+		progress: 98,
+		uploadedAt: "Sun Jan 08 2017 13:30:18 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Mon Jun 06 2005 14:09:01 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "87250f96-76cd-4a2a-8f2e-7625e049fd14",
+		name: "Fort Harleychester",
+		status: "uploading",
+		progress: 19,
+		uploadedAt: "Fri May 06 1988 17:59:41 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Fri Nov 16 2007 14:22:45 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "07e513fd-a2eb-47d5-8d88-d3a631aa985b",
+		name: "New Lupeburgh",
+		status: "error",
+		progress: 1,
+		uploadedAt: "Tue Jan 20 2015 07:55:06 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Sat Oct 03 2009 22:59:22 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "d0d5ae77-534e-44b5-9ed6-6bc3410c8797",
+		name: "Stiedemannmouth",
+		status: "queued",
+		progress: 21,
+		uploadedAt: "Fri Mar 04 1977 22:52:04 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Sun May 18 1975 15:14:19 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "300c2398-10d2-4e8a-94fc-ba032b938d41",
+		name: "East Holly",
+		status: "success",
+		progress: 79,
+		uploadedAt: "Mon Nov 27 2023 22:35:01 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Tue Jan 24 1995 09:26:51 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "709b156a-0a4c-4b05-926e-4316ad3c376c",
+		name: "O'Haratown",
+		status: "processing",
+		progress: 3,
+		uploadedAt: "Sat Feb 15 2003 22:18:06 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Thu Oct 13 2022 16:20:26 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "addc145a-97a9-46bb-90d6-0388b9427b0f",
+		name: "Fort Alayna",
+		status: "uploading",
+		progress: 64,
+		uploadedAt: "Tue Jul 24 2001 14:58:08 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Sat Jun 10 1995 15:00:49 GMT+0900 (Japan Standard Time)",
+	},
+	{
+		id: "033c2e26-2aa6-42a5-962f-b1c01b7a178e",
+		name: "Goyetteside",
+		status: "uploading",
+		progress: 45,
+		uploadedAt: "Sat Sep 16 1995 05:47:38 GMT+0900 (Japan Standard Time)",
+		proccessedAt: "Tue Nov 10 1998 15:43:18 GMT+0900 (Japan Standard Time)",
+	},
+];
