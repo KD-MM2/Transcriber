@@ -2,6 +2,7 @@ import { type Navigation } from "@toolpad/core";
 import { AppProvider } from "@toolpad/core/react-router-dom";
 
 import { Outlet } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import ArticleIcon from "@mui/icons-material/Article";
 import HomeIcon from "@mui/icons-material/Home";
@@ -40,14 +41,27 @@ const NAVIGATION: Navigation = [
 	},
 ];
 
+const SETUP_ONLY = [
+	{
+		segment: paths.setup.path,
+		title: "Setup",
+		icon: <SettingsIcon />,
+	},
+];
+
 const BRANDING = {
 	title: "Transcribidi",
 	logo: <img src="/vite.svg" alt="Transcribidi" />,
 };
 
 export default function App() {
+	const location = useLocation();
+	const isSetup = location.pathname.includes(paths.setup.path);
 	return (
-		<AppProvider navigation={NAVIGATION} branding={BRANDING}>
+		<AppProvider
+			navigation={isSetup ? SETUP_ONLY : NAVIGATION}
+			branding={BRANDING}
+		>
 			<Outlet />
 		</AppProvider>
 	);
