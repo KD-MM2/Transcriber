@@ -49,12 +49,12 @@ const routes = [
 						},
 					},
 					{
-						path: paths.upload.path,
+						path: paths.uploads.path,
 						lazy: async () => {
-							const { default: Upload } = await import(
-								"@/pages/Upload"
+							const { default: Uploads } = await import(
+								"@/pages/Uploads"
 							);
-							return { Component: Upload };
+							return { Component: Uploads };
 						},
 					},
 					{

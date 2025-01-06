@@ -23,8 +23,8 @@ const NAVIGATION: Navigation = [
 		icon: <SpeakerNotesIcon />,
 	},
 	{
-		segment: paths.upload.path,
-		title: "Upload",
+		segment: paths.uploads.path,
+		title: "Uploads",
 		icon: <UploadFileIcon />,
 	},
 	{

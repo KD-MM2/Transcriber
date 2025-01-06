@@ -12,9 +12,9 @@ export const paths = {
 		pattern: "transcripts{/:transcriptId}*",
 		getHref: (id: string) => `/transcripts/${id}`,
 	},
-	upload: {
-		path: "upload",
-		getHref: () => "/upload",
+	uploads: {
+		path: "uploads",
+		getHref: () => "/uploads",
 	},
 	templates: {
 		path: "templates",
