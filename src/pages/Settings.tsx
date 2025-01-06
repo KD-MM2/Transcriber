@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 
 import { IListItem } from "@/types";
 
-const whisperModels: IListItem[] = [
+export const whisperModels: IListItem[] = [
 	{ label: "Tiny", value: "tiny" },
 	{ label: "Tiny Q5_1", value: "tiny-q5_1" },
 	{ label: "Tiny Q8_0", value: "tiny-q8_0" },
