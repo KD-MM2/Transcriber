@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import "@/App.css";
 import reactLogo from "@/assets/react.svg";
 
 import viteLogo from "/vite.svg";
@@ -22,6 +21,7 @@ function Landing() {
 					/>
 				</a>
 			</div>
+			<h1 className="text-xl font-bold underline">Hello world!</h1>
 			<h1>Vite + React</h1>
 			<div className="card">
 				<button onClick={() => setCount((count) => count + 1)}>
