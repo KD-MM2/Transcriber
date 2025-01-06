@@ -11,6 +11,7 @@ import ViewModuleIcon from "@mui/icons-material/ViewModule";
 
 import TranscriptListItem from "@/components/TranscriptListItem";
 import { transcriptions } from "@/dummy";
+import { IViewConfig } from "@/types";
 
 const gridViewConfig: IViewConfig = {
 	spacing: { xs: 2, md: 3 },
