@@ -31,12 +31,10 @@ export default function UploadListItem({ data }: IUploadListItemProps) {
 						{data.id}
 					</Typography>
 					<Typography variant="h5" component="div">
-						{data.name}
+						{data.title}
 					</Typography>
 					<Typography sx={{ color: "text.secondary", mb: 1.5 }}>
-						{/* TODO: Add Status handler(eg: error->red, success->green, uploading->cancel, cancelled, error,...)
-                                
-                        */}
+						{/* TODO: Add Status handler(eg: error->red, success->green, uploading->cancel, cancelled, error,...)*/}
 						Status: {data.status}
 					</Typography>
 					<Typography variant="body2">
