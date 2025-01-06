@@ -50,8 +50,8 @@ const SETUP_ONLY = [
 ];
 
 const BRANDING = {
-	title: "Transcribidi",
-	logo: <img src="/vite.svg" alt="Transcribidi" />,
+	title: "Transcriber",
+	logo: <img src="/vite.svg" alt="Transcriber logo" />,
 };
 
 export default function App() {
