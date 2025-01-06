@@ -89,7 +89,7 @@ export interface IViewConfig {
 
 export interface IUploadItem {
 	id: string;
-	name: string;
+	title: string;
 	status: TUploadNProcessStatus;
 	progress: number;
 	uploadedAt: string;
@@ -97,7 +97,7 @@ export interface IUploadItem {
 }
 
 export interface IUploadListItemProps {
-    data: IUploadItem;
+	data: IUploadItem;
 }
 
 export type TUploadNProcessStatus =
@@ -107,3 +107,27 @@ export type TUploadNProcessStatus =
 	| "queued"
 	| "processing"
 	| "done";
+
+export interface ITemplate {
+	id: string;
+	title: string;
+	createdAt: string;
+	prompt: string;
+}
+
+export interface ITemplateListItemProps {
+	data: ITemplate;
+}
+
+export interface IListItem {
+	label: string;
+	value: string;
+}
+
+export interface ISettings {
+    whisperModel: string;
+    summarizeApi: string;
+    summarizeApiKey: string;
+    summarizeModel: string;
+    speakerDiarization: boolean;
+}

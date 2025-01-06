@@ -1,4 +1,4 @@
-import { ITranscription, IUploadItem } from "@/types";
+import { ITemplate, ITranscription, IUploadItem } from "@/types";
 
 export const transcriptions: ITranscription[] = [
 	{
@@ -116,7 +116,7 @@ export const transcriptions: ITranscription[] = [
   "repeat(1,20)",
   {
     "id": "guid()",
-    "name": "city()",
+    "title": "city()",
     "status": "enum(success,error,uploading,queued,processing,done)",
     "progress": "int(0, 100)",
     "uploadedAt": "date()",
@@ -130,7 +130,7 @@ Replace(regex):
 export const uploads: IUploadItem[] = [
 	{
 		id: "03041c2c-d194-4b7e-b666-9ad648d4608a",
-		name: "Margarettaworth",
+		title: "Margarettaworth",
 		status: "error",
 		progress: 13,
 		uploadedAt: "Mon Mar 20 2017 07:39:52 GMT+0900 (Japan Standard Time)",
@@ -138,7 +138,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "192e6c6e-164f-430e-810d-19bf594fd650",
-		name: "Parisianshire",
+		title: "Parisianshire",
 		status: "success",
 		progress: 4,
 		uploadedAt: "Sat Sep 27 2003 22:24:37 GMT+0900 (Japan Standard Time)",
@@ -146,7 +146,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "799dfacd-6d58-4fe3-ac5f-dd6329be7e14",
-		name: "Fisherfurt",
+		title: "Fisherfurt",
 		status: "error",
 		progress: 70,
 		uploadedAt: "Wed Jul 16 2008 02:15:30 GMT+0900 (Japan Standard Time)",
@@ -154,7 +154,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "ba1678fe-8c9e-4088-9f21-041dbacf237c",
-		name: "Abernathyborough",
+		title: "Abernathyborough",
 		status: "error",
 		progress: 39,
 		uploadedAt: "Fri Jan 26 2024 01:44:29 GMT+0900 (Japan Standard Time)",
@@ -162,7 +162,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "27580af5-2246-4c12-b978-e61b7db8a93d",
-		name: "Alessandrostad",
+		title: "Alessandrostad",
 		status: "error",
 		progress: 98,
 		uploadedAt: "Sun Jan 08 2017 13:30:18 GMT+0900 (Japan Standard Time)",
@@ -170,7 +170,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "87250f96-76cd-4a2a-8f2e-7625e049fd14",
-		name: "Fort Harleychester",
+		title: "Fort Harleychester",
 		status: "uploading",
 		progress: 19,
 		uploadedAt: "Fri May 06 1988 17:59:41 GMT+0900 (Japan Standard Time)",
@@ -178,7 +178,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "07e513fd-a2eb-47d5-8d88-d3a631aa985b",
-		name: "New Lupeburgh",
+		title: "New Lupeburgh",
 		status: "error",
 		progress: 1,
 		uploadedAt: "Tue Jan 20 2015 07:55:06 GMT+0900 (Japan Standard Time)",
@@ -186,7 +186,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "d0d5ae77-534e-44b5-9ed6-6bc3410c8797",
-		name: "Stiedemannmouth",
+		title: "Stiedemannmouth",
 		status: "queued",
 		progress: 21,
 		uploadedAt: "Fri Mar 04 1977 22:52:04 GMT+0900 (Japan Standard Time)",
@@ -194,7 +194,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "300c2398-10d2-4e8a-94fc-ba032b938d41",
-		name: "East Holly",
+		title: "East Holly",
 		status: "success",
 		progress: 79,
 		uploadedAt: "Mon Nov 27 2023 22:35:01 GMT+0900 (Japan Standard Time)",
@@ -202,7 +202,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "709b156a-0a4c-4b05-926e-4316ad3c376c",
-		name: "O'Haratown",
+		title: "O'Haratown",
 		status: "processing",
 		progress: 3,
 		uploadedAt: "Sat Feb 15 2003 22:18:06 GMT+0900 (Japan Standard Time)",
@@ -210,7 +210,7 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "addc145a-97a9-46bb-90d6-0388b9427b0f",
-		name: "Fort Alayna",
+		title: "Fort Alayna",
 		status: "uploading",
 		progress: 64,
 		uploadedAt: "Tue Jul 24 2001 14:58:08 GMT+0900 (Japan Standard Time)",
@@ -218,10 +218,103 @@ export const uploads: IUploadItem[] = [
 	},
 	{
 		id: "033c2e26-2aa6-42a5-962f-b1c01b7a178e",
-		name: "Goyetteside",
+		title: "Goyetteside",
 		status: "uploading",
 		progress: 45,
 		uploadedAt: "Sat Sep 16 1995 05:47:38 GMT+0900 (Japan Standard Time)",
 		proccessedAt: "Tue Nov 10 1998 15:43:18 GMT+0900 (Japan Standard Time)",
+	},
+];
+
+export const templates: ITemplate[] = [
+	{
+		id: "67179e57-52d2-4ce2-b7fc-887a4141b6b0",
+		title: "Longmont",
+		createdAt: "Tue Jun 18 2024 08:19:11 GMT+0900 (Japan Standard Time)",
+		prompt: "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+	},
+	{
+		id: "03d52c65-d136-4cee-853d-2bc7c29efa23",
+		title: "East Cleostead",
+		createdAt: "Mon Sep 23 1985 15:39:56 GMT+0900 (Japan Standard Time)",
+		prompt: "The Football Is Good For Training And Recreational Purposes",
+	},
+	{
+		id: "3c5770ce-e5ab-4890-9650-a795db916511",
+		title: "Somerville",
+		createdAt: "Mon Jan 30 2006 16:21:23 GMT+0900 (Japan Standard Time)",
+		prompt: "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+	},
+	{
+		id: "d44a712b-fd4c-4812-95ba-c56b5cee44cb",
+		title: "Hartford",
+		createdAt: "Sat Aug 31 2013 04:25:33 GMT+0900 (Japan Standard Time)",
+		prompt: "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+	},
+	{
+		id: "1422cfdb-b442-44ef-b662-a39fccef1fa4",
+		title: "Hudsonshire",
+		createdAt: "Fri May 16 2003 20:34:10 GMT+0900 (Japan Standard Time)",
+		prompt: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+	},
+	{
+		id: "dc9bc922-f7de-4524-896d-ebaadce1701a",
+		title: "Monahanborough",
+		createdAt: "Sun Oct 06 2013 00:10:50 GMT+0900 (Japan Standard Time)",
+		prompt: "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+	},
+	{
+		id: "5231ca75-47dd-4e1a-9b5b-149c15673746",
+		title: "Lindseyville",
+		createdAt: "Mon May 09 1983 21:54:14 GMT+0900 (Japan Standard Time)",
+		prompt: "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
+	},
+	{
+		id: "fcb62dee-9ca9-4636-bedf-fdfca6951f2e",
+		title: "North Trevacester",
+		createdAt: "Sat Apr 03 2004 09:28:57 GMT+0900 (Japan Standard Time)",
+		prompt: "Boston's most advanced compression wear technology increases muscle oxygenation, stabilizes active muscles",
+	},
+	{
+		id: "36349002-359c-4db6-b069-f47abc987159",
+		title: "Rippinbury",
+		createdAt: "Wed Jan 06 1988 06:33:53 GMT+0900 (Japan Standard Time)",
+		prompt: "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+	},
+	{
+		id: "b91f09b6-3941-4e53-b73b-35f70ba84058",
+		title: "Yorba Linda",
+		createdAt: "Wed Sep 22 2021 20:40:42 GMT+0900 (Japan Standard Time)",
+		prompt: "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+	},
+	{
+		id: "bf32cdcf-b96b-481b-9abe-7415b84b2055",
+		title: "Grapevine",
+		createdAt: "Mon Jul 16 2007 09:27:31 GMT+0900 (Japan Standard Time)",
+		prompt: "The Football Is Good For Training And Recreational Purposes",
+	},
+	{
+		id: "1f643709-51da-4722-97e0-70ec67782c22",
+		title: "Adolfoland",
+		createdAt: "Sat Mar 03 1990 04:55:59 GMT+0900 (Japan Standard Time)",
+		prompt: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+	},
+	{
+		id: "eb98187e-a6ee-452b-8358-4d9698497781",
+		title: "New Kylee",
+		createdAt: "Wed Jan 26 2011 12:09:35 GMT+0900 (Japan Standard Time)",
+		prompt: "New range of formal shirts are designed keeping you in mind. With fits and styling that will make you stand apart",
+	},
+	{
+		id: "d5058ca7-caef-4b43-b959-538f7621180d",
+		title: "Fort Carolechester",
+		createdAt: "Mon Oct 29 1990 20:43:53 GMT+0900 (Japan Standard Time)",
+		prompt: "The automobile layout consists of a front-engine design, with transaxle-type transmissions mounted at the rear of the engine and four wheel drive",
+	},
+	{
+		id: "16e43f59-ae10-4083-8299-36295c99c1d3",
+		title: "North Carlo",
+		createdAt: "Wed Jul 15 2020 08:34:43 GMT+0900 (Japan Standard Time)",
+		prompt: "The beautiful range of Apple Naturalé that has an exciting mix of natural ingredients. With the Goodness of 100% Natural Ingredients",
 	},
 ];
