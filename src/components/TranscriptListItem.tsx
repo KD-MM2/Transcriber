@@ -5,24 +5,28 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { ITranscriptProps } from "@/types";
 
+import { ITranscriptProps } from "@/types";
 
 export default function TranscriptListItem({ data }: ITranscriptProps) {
 	return (
 		<>
-			<Card sx={{ minWidth: 275 }}>
+			<Card className="min-w-64">
 				<CardContent>
 					<Typography
 						gutterBottom
-						sx={{ color: "text.secondary", fontSize: 14 }}
+						sx={{ color: "text.secondary" }}
+						className="text-sm"
 					>
 						{data.id}
 					</Typography>
 					<Typography variant="h5" component="div">
 						{data.title}
 					</Typography>
-					<Typography sx={{ color: "text.secondary", mb: 1.5 }}>
+					<Typography
+						sx={{ color: "text.secondary" }}
+						className="mb-6"
+					>
 						{data.duration}
 					</Typography>
 					<Typography variant="body2">

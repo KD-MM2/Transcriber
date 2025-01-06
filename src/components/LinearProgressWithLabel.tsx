@@ -8,11 +8,11 @@ function LinearProgressWithLabel(
 	props: LinearProgressProps & { value: number }
 ) {
 	return (
-		<Box sx={{ display: "flex", alignItems: "center" }}>
-			<Box sx={{ width: "100%", mr: 1 }}>
+		<Box className="flex items-center">
+			<Box className="w-full mr-4">
 				<LinearProgress variant="determinate" {...props} />
 			</Box>
-			<Box sx={{ minWidth: 35 }}>
+			<Box className="min-w-8">
 				<Typography
 					variant="body2"
 					sx={{ color: "text.secondary" }}

@@ -51,7 +51,7 @@ function Templates() {
 				</ToggleButton>
 			</ToggleButtonGroup>
 
-			<Box sx={{ flexGrow: 1 }}>
+			<Box className="flex-grow">
 				<TransitionGroup>
 					<CSSTransition
 						key={viewConfig.columns.md}
