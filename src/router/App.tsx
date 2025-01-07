@@ -56,7 +56,7 @@ const BRANDING = {
 
 export default function App() {
 	const location = useLocation();
-	const isSetup = location.pathname.includes(paths.setup.path);
+	const isSetup = location.pathname === paths.setup.getHref();
 	return (
 		<AppProvider
 			navigation={isSetup ? SETUP_ONLY : NAVIGATION}
