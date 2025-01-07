@@ -1,5 +1,4 @@
-// import { Button, Card, Checkbox, Flex, List, Steps, Input } from "antd";
-import { useCallback, useState } from "react";
+import { useState, useCallback, useMemo, memo, ChangeEvent } from "react";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,26 +10,24 @@ import FormGroup from "@mui/material/FormGroup";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
 import Step from "@mui/material/Step";
+import StepContent from "@mui/material/StepContent";
 import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-// import { registerOnMessage } from "@/hooks/useWs";
 import { api } from "@/lib/axios";
+import { randomId } from "@/lib/utils";
 import NotFound from "@/pages/NotFound";
 import { whisperModels } from "@/pages/Settings";
 
 interface StateProps {
 	val: any;
 	setVal: (v: any) => void;
-}
-interface StateProps2 {
-	val: any;
-	setVal: (v: any) => void;
-	val2: any;
-	setVal2: (v: any) => void;
+	val2?: any;
+	setVal2?: (v: any) => void;
 }
 
 interface CardComponentProps extends StateProps {
@@ -71,78 +68,82 @@ const convert = (l: string[], s: string[], q: string[]) => {
 	return models;
 };
 
-const CardComponent = ({ options, val, setVal }: CardComponentProps) => (
-	<FormGroup
-		style={{
-			display: "flex",
-			flexDirection: "column",
-			gap: "1rem",
-			userSelect: "none",
-		}}
-	>
-		{options.map((option) => (
-			<FormControlLabel
-				key={option.value}
-				control={
-					<Checkbox
-						checked={val.includes(option.value)}
-						onChange={(event) => {
-							const newValue = event.target.checked
-								? [...val, option.value]
-								: val.filter((v: any) => v !== option.value);
-							setVal(newValue);
-						}}
-					/>
-				}
-				label={option.label}
-			/>
-		))}
-	</FormGroup>
-);
-
-const RemovableList = ({ val, setVal, val2, setVal2 }: StateProps2) => (
-	<List>
-		{val.map((item: any) => (
-			<ListItem
-				key={item}
-				secondaryAction={
-					<>
-						<Button
-							color="primary"
-							variant="text"
-							onClick={() => setVal2(item)}
-							disabled={val2 === item}
-						>
-							default
-						</Button>
-						<Button
-							color="error"
-							variant="text"
-							onClick={() =>
-								setVal(val.filter((v: any) => v !== item))
-							}
-						>
-							delete
-						</Button>
-					</>
-				}
-			>
-				<ListItemText
-					primary={
-						typeof item === "string" ? (
-							item
-						) : (
-							<strong>{item.name}</strong>
-						)
+const CardComponent = memo(({ options, val, setVal }: CardComponentProps) => (
+	<FormGroup>
+		<div className="flex flex-row gap-2 select-none justify-left align-center">
+			{options.map((option) => (
+				<FormControlLabel
+					key={option.value}
+					control={
+						<Checkbox
+							checked={val.includes(option.value)}
+							onChange={(event) => {
+								const newValue = event.target.checked
+									? [...val, option.value]
+									: val.filter(
+											(v: any) => v !== option.value
+										);
+								setVal(newValue);
+							}}
+						/>
 					}
-					secondary={typeof item === "string" ? null : item.prompt}
+					label={option.label}
 				/>
-			</ListItem>
-		))}
-	</List>
-);
+			))}
+		</div>
+	</FormGroup>
+));
 
-const SummarizeModel = ({ val, setVal }: StateProps) => (
+const RemovableList = memo(({ val, setVal, val2, setVal2 }: StateProps) => (
+	<List>
+		{val.map((item: any, index: number) => {
+			const id = randomId();
+			return (
+				<ListItem
+					key={`${id}-${index}`}
+					secondaryAction={
+						<>
+							<Button
+								color="primary"
+								variant="text"
+								onClick={() =>
+									setVal2 !== undefined && setVal2(item)
+								}
+								disabled={val2 === item}
+							>
+								default
+							</Button>
+							<Button
+								color="error"
+								variant="text"
+								onClick={() =>
+									setVal(val.filter((v: any) => v !== item))
+								}
+							>
+								delete
+							</Button>
+						</>
+					}
+				>
+					<ListItemText
+						primary={
+							typeof item === "string" ? (
+								item
+							) : (
+								<strong>{item.name}</strong>
+							)
+						}
+						secondary={
+							typeof item === "string" ? null : item.prompt
+						}
+					/>
+				</ListItem>
+			);
+		})}
+	</List>
+));
+
+const SummarizeModel = memo(({ val, setVal }: StateProps) => (
 	<Box display="flex" flexDirection="column" gap={2} alignItems="flex-start">
 		<Typography variant="h4">Supports OpenAI API</Typography>
 		<TextField
@@ -160,9 +161,9 @@ const SummarizeModel = ({ val, setVal }: StateProps) => (
 			}
 		/>
 	</Box>
-);
+));
 
-const Templates = ({ val, setVal, val2, setVal2 }: StateProps2) => {
+const Templates = memo(({ val, setVal, val2, setVal2 }: StateProps) => {
 	const [template, setTemplate] = useState<Template>({
 		name: "",
 		prompt: "",
@@ -174,7 +175,7 @@ const Templates = ({ val, setVal, val2, setVal2 }: StateProps2) => {
 				<TextField
 					label="Name"
 					value={template.name || ""}
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+					onChange={(e: ChangeEvent<HTMLInputElement>) =>
 						setTemplate({ ...template, name: e.target.value })
 					}
 					variant="outlined"
@@ -182,7 +183,7 @@ const Templates = ({ val, setVal, val2, setVal2 }: StateProps2) => {
 				<TextField
 					label="Prompt"
 					value={template.prompt || ""}
-					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+					onChange={(e: ChangeEvent<HTMLInputElement>) =>
 						setTemplate({ ...template, prompt: e.target.value })
 					}
 					variant="outlined"
@@ -217,9 +218,9 @@ const Templates = ({ val, setVal, val2, setVal2 }: StateProps2) => {
 			</Box>
 		</Box>
 	);
-};
+});
 
-const FinishScreen = ({ val, setVal: _setVal }: StateProps) => {
+const FinishScreen = memo(({ val, setVal: _setVal }: StateProps) => {
 	return (
 		<>
 			<Card
@@ -235,7 +236,7 @@ const FinishScreen = ({ val, setVal: _setVal }: StateProps) => {
 					<List>
 						{val.map((item: any, index: number) => (
 							<ListItem key={index}>
-								<Typography style={{ whiteSpace: "pre-wrap" }}>
+								<Typography sx={{ whiteSpace: "pre-wrap" }}>
 									{item}
 								</Typography>
 							</ListItem>
@@ -245,10 +246,10 @@ const FinishScreen = ({ val, setVal: _setVal }: StateProps) => {
 			</Card>
 		</>
 	);
-};
+});
 
 function Setup() {
-	const [currentStep, setCurrentStep] = useState(0);
+	const [currentStep, setCurrentStep] = useState(Number("0"));
 	const [models, setModels] = useState<Model[]>([]);
 	const [selectedLang, setSelectedLang] = useState<string[]>([]);
 	const [selectedSize, setSelectedSize] = useState<string[]>([]);
@@ -264,132 +265,142 @@ function Setup() {
 		{} as Template
 	);
 
-	// const handleMessage = useCallback(
-	// 	(message: any) => {
-	// 		// console.log("handleMessage:", message);
-	// 		setBackendLogs((prev) => [message, ...prev]);
-	// 	},
-	// 	[setBackendLogs]
-	// );
+	const options = useMemo(
+		() => ({
+			lang: [
+				{ label: "English", value: "en" },
+				{ label: "Multilingual", value: "multilingual" },
+			],
+			sizes: [
+				{ label: "Tiny", value: "tiny" },
+				{ label: "Base", value: "base" },
+				{ label: "Small", value: "small" },
+				{ label: "Medium", value: "medium" },
+				{ label: "Large v1", value: "large-v1" },
+				{ label: "Large v2", value: "large-v2" },
+				{ label: "Large v3", value: "large-v3" },
+				{ label: "Large v3 Turbo", value: "large-v3-turbo" },
+			],
+			quant: [
+				{ label: "Non-quantized", value: "" },
+				{ label: "5-bit", value: "q5_0" },
+				{ label: "5-bit (1 bit for activations)", value: "q5_1" },
+				{ label: "8-bit", value: "q8_0" },
+				{ label: "tdrz", value: "tdrz" },
+			],
+		}),
+		[]
+	);
 
-	const options = {
-		lang: [
-			{ label: "English", value: "en" },
-			{ label: "Multilingual", value: "multilingual" },
-		],
-		sizes: [
-			{ label: "Tiny", value: "tiny" },
-			{ label: "Base", value: "base" },
-			{ label: "Small", value: "small" },
-			{ label: "Medium", value: "medium" },
-			{ label: "Large v1", value: "large-v1" },
-			{ label: "Large v2", value: "large-v2" },
-			{ label: "Large v3", value: "large-v3" },
-			{ label: "Large v3 Turbo", value: "large-v3-turbo" },
-		],
-		quant: [
-			{ label: "Non-quantized", value: "" },
-			{ label: "5-bit", value: "q5_0" },
-			{ label: "5-bit (1 bit for activations)", value: "q5_1" },
-			{ label: "8-bit", value: "q8_0" },
-			{ label: "tdrz", value: "tdrz" },
-		],
-	};
+	const getCurrentStepComponent = useCallback(
+		(currentStep: number) => {
+			switch (currentStep) {
+				case 0:
+					return (
+						<CardComponent
+							options={options.lang}
+							val={selectedLang}
+							setVal={setSelectedLang}
+						/>
+					);
+				case 1:
+					return (
+						<CardComponent
+							options={options.sizes}
+							val={selectedSize}
+							setVal={setSelectedSize}
+						/>
+					);
+				case 2:
+					return (
+						<CardComponent
+							options={options.quant}
+							val={selectedQuant}
+							setVal={setSelectedQuant}
+						/>
+					);
+				case 3:
+					return (
+						<RemovableList
+							val={models}
+							setVal={setModels}
+							val2={defaultModel}
+							setVal2={setDefaultModel}
+						/>
+					);
+				case 4:
+					return (
+						<SummarizeModel
+							val={selectedBackend}
+							setVal={setSelectedBackend}
+						/>
+					);
+				case 5:
+					return (
+						<Templates
+							val={templates}
+							setVal={setTemplates}
+							val2={defaultTemplate}
+							setVal2={setDefaultTemplate}
+						/>
+					);
+				case 6:
+					return (
+						<FinishScreen
+							val={backendLogs}
+							setVal={setBackendLogs}
+						/>
+					);
+				default:
+					return <NotFound />;
+			}
+		},
+		[
+			currentStep,
+			options,
+			selectedLang,
+			selectedSize,
+			selectedQuant,
+			models,
+			defaultModel,
+			selectedBackend,
+			templates,
+			defaultTemplate,
+			backendLogs,
+		]
+	);
 
-	const getCurrentStepComponent = (currentStep: number) => {
-		switch (currentStep) {
-			case 0:
-				return (
-					<CardComponent
-						options={options.lang}
-						val={selectedLang}
-						setVal={setSelectedLang}
-					/>
-				);
-			case 1:
-				return (
-					<CardComponent
-						options={options.sizes}
-						val={selectedSize}
-						setVal={setSelectedSize}
-					/>
-				);
-			case 2:
-				return (
-					<CardComponent
-						options={options.quant}
-						val={selectedQuant}
-						setVal={setSelectedQuant}
-					/>
-				);
-			case 3:
-				return (
-					<RemovableList
-						val={models}
-						setVal={setModels}
-						val2={defaultModel}
-						setVal2={setDefaultModel}
-					/>
-				);
-			case 4:
-				return (
-					<SummarizeModel
-						val={selectedBackend}
-						setVal={setSelectedBackend}
-					/>
-				);
-			case 5:
-				return (
-					<Templates
-						val={templates}
-						setVal={setTemplates}
-						val2={defaultTemplate}
-						setVal2={setDefaultTemplate}
-					/>
-				);
-			case 6:
-				return (
-					<FinishScreen val={backendLogs} setVal={setBackendLogs} />
-				);
-			default:
-				return <NotFound />;
-		}
-	};
-
-	const finishHandler = (
-		models: Model[],
-		defaultModel: string,
-		summarizeBackend: SummarizeBackend,
-		templates: Template[],
-		defaultTemplate: Template
-	) => {
-		console.log("FINISHING Models:", models);
-		console.log("FINISHING API:", summarizeBackend);
-		console.log("FINISHING Templates:", templates);
-		try {
-			// registerOnMessage(handleMessage);
-			const res = api.post("/api/setup", {
-				models,
-				defaultModel,
-				summarizeBackend,
-				templates,
-				defaultTemplate,
-			});
-			console.log("FINISHING RESPONSE:", res);
-		} catch (e) {
-			console.log("FINISHING ERROR:", e);
-		}
-	};
+	const finishHandler = useCallback(
+		(
+			models: Model[],
+			defaultModel: string,
+			summarizeBackend: SummarizeBackend,
+			templates: Template[],
+			defaultTemplate: Template
+		) => {
+			console.log("FINISHING Models:", models);
+			console.log("FINISHING API:", summarizeBackend);
+			console.log("FINISHING Templates:", templates);
+			try {
+				const res = api.post("/api/setup", {
+					models,
+					defaultModel,
+					summarizeBackend,
+					templates,
+					defaultTemplate,
+				});
+				console.log("FINISHING RESPONSE:", res);
+			} catch (e) {
+				console.log("FINISHING ERROR:", e);
+			}
+		},
+		[]
+	);
 
 	return (
-		<Box
-			display="flex"
-			flexDirection="column"
-			gap={2}
-			alignItems="flex-start"
-		>
-			<Card sx={{ minWidth: 1000, maxWidth: 1000 }}>
-				<Stepper activeStep={currentStep} alternativeLabel>
+		<Box sx={{ width: "100%" }}>
+			<Stack spacing={2}>
+				<Stepper activeStep={currentStep} orientation="vertical">
 					{[
 						"Language",
 						"Model size",
@@ -401,34 +412,14 @@ function Setup() {
 					].map((label) => (
 						<Step key={label}>
 							<StepLabel>{label}</StepLabel>
+							<StepContent>
+								{getCurrentStepComponent(currentStep)}
+							</StepContent>
 						</Step>
 					))}
 				</Stepper>
-			</Card>
-
-			<Card
-				sx={{
-					height: "100%",
-					minHeight: 400,
-					maxHeight: 400,
-					minWidth: 1000,
-					maxWidth: 1000,
-					overflowY: "auto",
-				}}
-			>
-				{getCurrentStepComponent(currentStep)}
-			</Card>
-
-			<Card
-				sx={{
-					minWidth: 1000,
-					maxWidth: 1000,
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "flex-end",
-					gap: "1rem",
-				}}
-			>
+			</Stack>
+			<Box className="absolute bottom-10 right-20">
 				<Button
 					onClick={() => setCurrentStep(Math.max(currentStep - 1, 0))}
 					disabled={currentStep === 0}
@@ -476,7 +467,7 @@ function Setup() {
 				>
 					{currentStep >= 6 ? "Finish" : "Next"}
 				</Button>
-			</Card>
+			</Box>
 		</Box>
 	);
 }
