@@ -1,3 +1,5 @@
+"use client";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { paths } from "@/config/paths";
@@ -94,6 +96,13 @@ const routes = [
 						},
 					},
 				],
+			},
+			{
+				path: "/sign-in",
+				lazy: async () => {
+					const { default: SignIn } = await import("@/pages/SignIn");
+					return { Component: SignIn };
+				},
 			},
 		],
 	},
